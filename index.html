@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script type="module" src="/src/main.ts"></script>
+    <link rel="stylesheet" href="./src/style.css" />
+    <title>frontendapp</title>
+  </head>
+  <body>
+    <header>
+      <h1>Scrum Board</h1>
+    </header>
+    <div class="memberbox">
+      <h3>Add a member!</h3>
+      <form id="addmember">
+        <input type="text" name="name" id="name" placeholder="Name/Title" />
+        <select name="catagory" id="catagory">
+          <option value="frontend">Frontend</option>
+          <option value="backend">Backend</option>
+          <option value="ux">UX</option>
+        </select>
+        <button>Add member</button>
+      </form>
+    </div>
+
+    <div class="assignmentbox">
+      <h3>Add a assignment</h3>
+      <div id="addassignmentdiv">
+        <form id="addassignment">
+          <input
+            type="text"
+            name="title"
+            id="assignmenttitle"
+            placeholder="Assignement title"
+          />
+          <input
+            type="text"
+            name="assignment"
+            id="assignment"
+            placeholder="Desciption"
+          />
+          <select name="catagory" id="catagory">
+            <option value="frontend">Frontend</option>
+            <option value="backend">Backend</option>
+            <option value="ux">UX</option>
+          </select>
+          <button>Add assignment</button>
+        </form>
+      </div>
+    </div>
+    <div id="assignmentwrapper">
+      <div>
+        <h1>New</h1>
+        <div id="newassignments"></div>
+      </div>
+      <div>
+        <h1>Ongoing</h1>
+        <div id="ongoingassignments"></div>
+      </div>
+      <div>
+        <h1>Done</h1>
+        <div id="doneassignments"></div>
+      </div>
+    </div>
+  </body>
+</html>
