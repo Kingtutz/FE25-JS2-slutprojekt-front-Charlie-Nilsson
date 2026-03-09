@@ -1,6 +1,7 @@
 import { deleteAssignmentByID, updateAssignment } from "../assignments/assignmentfunctions"
 import { getAssignments } from "../assignments/assignmentgetters"
 import { type Assignment } from "../assignments/assignmenttypes"
+import { currentTime } from "../main"
 import { type Member } from "../members/memberstypes"
 
 export const newassignmentwrapper = document.querySelector("#newassignments") as HTMLDivElement
@@ -20,6 +21,7 @@ export function renderAssignments(assignments: Assignment[], members: Member[]) 
     const catagory = document.createElement("p");
     const categoryform = document.createElement("form");
     const selector = document.createElement("select");
+    const finishedTime = document.createElement("p")
     const assign = document.createElement("button");
     const done = document.createElement("button");
     const remove = document.createElement("button");
@@ -32,6 +34,7 @@ export function renderAssignments(assignments: Assignment[], members: Member[]) 
     description.innerText = assignment.description
     time.innerText = "Added: " + assignment.timestamp
     assignedmember.innerText = "Assigned to: " + assignment.member
+    finishedTime.innerText = "Finished at: " + assignment.finishtime
 
     const defaultOption = document.createElement("option");
     defaultOption.value = "NaN";
@@ -61,7 +64,8 @@ export function renderAssignments(assignments: Assignment[], members: Member[]) 
       const patchAssignment = {
         id: assignment.id,
         status: "Ongoing",
-        member: selectedMemberId
+        member: selectedMemberId,
+        finishedTime: ""
       }
       if (selectedMemberId === "NaN") {
         alert("Please choose a member!!")
@@ -73,7 +77,7 @@ export function renderAssignments(assignments: Assignment[], members: Member[]) 
     if (assignment.status === "new") {
       newassignmentwrapper.append(div);
 
-      div.append(title, description, catagory, time, assignedmember, categoryform);
+      div.append(title, description, catagory, time, categoryform);
     }
     else if (assignment.status === "Ongoing") {
       ongoingassignmentwrapper.append(div);
@@ -83,7 +87,8 @@ export function renderAssignments(assignments: Assignment[], members: Member[]) 
         e.preventDefault()
         const patchAssignment = {
           id: assignment.id,
-          status: "Done"
+          status: "Done",
+          finishtime: currentTime
         }
         updateAssignment(patchAssignment).then(getAssignments)
       })
@@ -93,17 +98,19 @@ export function renderAssignments(assignments: Assignment[], members: Member[]) 
         e.preventDefault()
         deleteAssignmentByID(assignment.id).then(getAssignments)
       })
+      finishedTime.innerText = "Not done yet" + currentTime
 
-      div.append(title, description, catagory, time, assignedmember, remove, done);
+      div.append(title, description, catagory, time, finishedTime, assignedmember, remove, done);
 
     } else if (assignment.status === "Done") {
       doneassignmentwrapper.append(div);
+      finishedTime.innerText = assignment.finishtime
       remove.innerText = "remove"
       remove.addEventListener("click", e => {
         e.preventDefault()
         deleteAssignmentByID(assignment.id).then(getAssignments)
       })
-      div.append(title, description, catagory, time, assignedmember, remove);
+      div.append(title, description, catagory, time, finishedTime, assignedmember, remove);
     }
   })
 }

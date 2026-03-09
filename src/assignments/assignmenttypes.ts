@@ -1,23 +1,26 @@
-export type Assignment={
+export type Assignment = {
     title: string,
-    description:string,
+    description: string,
     catagory: string,
-    status:string,
+    status: string,
     timestamp: string,
-    member: string
-    id:`${string}-${string}-${string}-${string}-${string}`
+    member: string,
+    finishtime: string,
+    id: `${string}-${string}-${string}-${string}-${string}`
 }
-export type NewAssignment={
+export type NewAssignment = {
     title: string,
-    description:string,
+    description: string,
     catagory: string,
-    status:string,
+    status: string,
     timestamp: string,
-    member: string
+    member: string,
+    finishtime: string
 }
 
-export type UpdateAssignmentPayload = {
+export type UpdateAssignment = {
     id: `${string}-${string}-${string}-${string}-${string}`,
     status?: string,
     member?: string
+    finishtime?: string
 }

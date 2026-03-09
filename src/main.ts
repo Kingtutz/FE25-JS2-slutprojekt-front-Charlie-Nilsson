@@ -9,8 +9,8 @@ export const baseUrl = 'http://localhost:3000/'
 getMembers()
 getAssignments()
 
-const currentTime = new Date().toLocaleTimeString()
-console.log(currentTime)
+export const currentTime = new Date().toLocaleTimeString()
+
 
 const addMemberform = document.querySelector("#addmember") as HTMLFormElement
 addMemberform.addEventListener("submit", e => {
@@ -38,7 +38,8 @@ addAssignmentForm.addEventListener("submit", e => {
     description: formData.get("assignment") as string,
     status: "new",
     timestamp: currentTime,
-    member: ""
+    member: "",
+    finishtime: ""
   }
   console.log(newAssignment)
   addAssignment(newAssignment).then(getAssignments)
